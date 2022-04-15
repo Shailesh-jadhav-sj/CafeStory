@@ -41,6 +41,16 @@ app.get("/logout",(req,res)=>{
   res.render("logout");
 });
 
+
+app.get("/purchase",(req,res)=>{
+  res.render("purchase");
+});
+
+app.get("/reservation",(req,res)=>{
+  res.render("reservation");
+});
+
+
 //--------------------------------
 
 console.log(static_path);

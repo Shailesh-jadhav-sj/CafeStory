@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Story | Reserve Your Table</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="css/reservation.css">
+</head>
+
+<body>
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <a href="#" class="logo">
+            <img src="images/logo.png" alt="">
+        </a>
+
+        <nav class="navbar">
+            <a href="/">home</a>
+            <a href="/purchase">Purchase items</a>
+            <a href="/reservation">Reservation</a>
+            <a href="/cart">Cart</a>
+            <a href="/#about">About Us</a>
+            <a href="/#contact">Contact Us</a>
+            <a href="/login">Login</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-search" id="search-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- product section starts  -->
+    
+    <section class="products" id="products">
+
+        <h1 class="heading"> Reserve <span> Table</span> </h1>
+
+        <div class="container">
+            <form action="">
+                <div class="form-group">
+                    <label for="">From :</label>
+                    <select id='from' onchange="" name="from" class="form-control">
+                        <option value="0">--- Select Time ---</option>
+                        <option value="9">9 AM</option>
+                        <option value="10">10 AM</option>
+                        <option value="11">11 AM</option>
+                        <option value="12">12 PM</option>
+                        <option value="13">1 PM</option>
+                        <option value="14">2 PM</option>
+                        <option value="15">3 PM</option>
+                        <option value="16">4 PM</option>
+                        <option value="17">5 PM</option>
+                        <option value="18">6 PM</option>
+                        <option value="18">7 PM</option>
+                        <option value="19">8 PM</option>
+                        <option value="20">9 PM</option>
+                        <option value="21">10 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">To :</label>
+                    <select id='to' onchange="" name="to" class="form-control">
+                        <option value="0">--- Select Time ---</option>
+                        <option value="9">9 AM</option>
+                        <option value="10">10 AM</option>
+                        <option value="11">11 AM</option>
+                        <option value="12">12 PM</option>
+                        <option value="13">1 PM</option>
+                        <option value="14">2 PM</option>
+                        <option value="15">3 PM</option>
+                        <option value="16">4 PM</option>
+                        <option value="17">5 PM</option>
+                        <option value="18">6 PM</option>
+                        <option value="18">7 PM</option>
+                        <option value="19">8 PM</option>
+                        <option value="20">9 PM</option>
+                        <option value="21">10 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Date :</label>
+                    <input type="date" class="form-control" name="date" id="">
+                </div>
+                <input type="submit" class="btn" value="Book Now">
+            </form>
+        </div>	
+
+        </div>
+
+    </section>
+
+    <!-- product section ends -->
+    <!-- footer section starts  -->
+
+    <section class="footer">
+        <div class="credit">2022@all rights reserved.Created Using Html and CSS
+            <p><span>Contact us on : </span>0261-235758 <span>Mail us on : </span>@gmail.com </p>
+        </div>
+    </section>
+
+    <!-- footer section ends -->
+
+
+    <!-- custom js file link  -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
