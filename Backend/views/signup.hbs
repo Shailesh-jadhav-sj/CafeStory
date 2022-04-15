@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cafe Story | Sign Up</title>
+	<link rel="stylesheet" href="css/signup.css">
+</head>
+<script>
+	function makePostCall() {
+			var e = document.getElementById("email").value;
+		var p = document.getElementById("password").value;
+		var n = document.getElementById("name").value;
+	
+	fetch('/api/register',{
+	method:'POST',
+	headers:{
+	'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({"name":n,"email":e,"password":p})
+	})
+	.then(res=>{
+		
+		if(res.status==201)
+		{
+			location.href = "./login";
+		}
+		else
+		{
+		
+		}
+	})
+	.then(data=>console.log(res));
+	}
+</script>
+
+<body>
+	<div class="container">
+		<form action="">
+			<h1>Sign Up</h1>
+			
+			<div class="form-group">
+				<label for="">Name : </label>
+				<input type="text" class="form-control" name="name" id="name">
+			</div>
+            <div class="form-group">
+				<label for="">Email : </label>
+				<input type="email" class="form-control" name="email" id="email">
+			</div>
+            <div class="form-group">
+				<label for="">Password : </label>
+				<input type="password" class="form-control" name="password" id="password">
+			</div>
+            <div class="form-group">Already Registered? <a href="/login">Click Here!</a></div>
+			
+			<input type="button" class="btn" value="Sign Up" onclick="makePostCall()">
+		</form>
+	</div>	
+</body>
+</html>
