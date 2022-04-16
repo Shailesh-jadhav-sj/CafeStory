@@ -59,6 +59,10 @@ app.get("/cart",(req,res)=>{
 app.get("/orders",(req,res)=>{
   res.render("orders");
 });
+
+app.get("/add_products",(req,res)=>{
+  res.render("add_products");
+})
 //--------------------------------
 
 console.log(static_path);

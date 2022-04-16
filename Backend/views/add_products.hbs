@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Story | Add Your Products Here</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="css/add_products.css">
+</head>
+<script>
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+        
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        }
+    function Book()
+    {
+
+        var From = document.getElementById('From').value;
+        var To = document.getElementById('To').value;
+        var Date = document.getElementById('Date').value;
+        var Table = document.getElementById('Table').value;
+        
+
+        var firstName = getCookie("name");
+        fetch('/reserv/' + firstName,{
+        method:'POST',
+        headers:{
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"From": From,"To": To,"Date1": Date,"Table": Table})
+        
+        })
+        .then(res=>{if(res.status==201)
+        {
+            alert("booked successful");
+        }
+        else if(res.status==406)
+        {
+            alert("Table already booked");
+        }
+        })
+    }
+</script>
+
+<body>
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <a href="#" class="logo">
+            <img src="images/logo.png" alt="">
+        </a>
+
+        <nav class="navbar">
+            <a href="/">home</a>
+            <a href="/purchase">Purchase items</a>
+            <a href="/reservation">Reservation</a>
+            <a href="/cart">Cart</a>
+            <a href="/#about">About Us</a>
+            <a href="/#contact">Contact Us</a>
+            <a href="/login">Login</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-search" id="search-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- product section starts  -->
+    
+    <section class="products" id="products">
+
+        <h1 class="heading"> Add <span> Products</span> </h1>
+
+        <div class="container">
+            <form action="">
+                <div class="form-group">
+                    <label for="">Product Name :</label>
+                    <input type="text" class="form-control" placeholder="Add Your Product Name Here">
+                </div>
+                <div class="form-group">
+                    
+                    <label for="">Product Description :</label>
+                    <input type="text" class="form-control" placeholder="Add Your Product Description Here">
+                </div>
+                <div class="form-group">
+                    <label for="">Ingredients :</label>
+                    <input type="text" class="form-control" name="Ingredients" id="Ingredients" placeholder="Add Your Product Ingredients Here">
+                </div>
+                <div class="form-group">
+                    <label for="">Price :</label>
+                    
+                    <input type="text" class="form-control" placeholder="Add Your Product Price Here">
+                </div>
+                
+                <input type="button" onclick="Book()" class="btn" value="Add Product">
+            </form>
+        </div>	
+
+        </div>
+
+    </section>
+
+    <!-- product section ends -->
+    <!-- footer section starts  -->
+
+    <section class="footer">
+        <div class="credit">2022@all rights reserved.Created Using Html and CSS
+            <p><span>Contact us on : </span>0261-235758 <span>Mail us on : </span>@gmail.com </p>
+        </div>
+    </section>
+
+    <!-- footer section ends -->
+
+
+    <!-- custom js file link  -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
