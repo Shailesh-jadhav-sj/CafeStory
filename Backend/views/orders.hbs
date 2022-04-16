@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Story | Add to Cart</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="css/cart.css">
+    <script>
+        
+      
+
+        function RemoveRow(o) {
+            var p=o.parentNode.parentNode;
+                p.parentNode.removeChild(p);
+            }
+    </script>
+    <script>
+        function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+        
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        }
+        function fet()
+        {
+            var firstName = getCookie("name");
+            
+            fetch('/order/order/'+ firstName)
+	        .then(res=>res.json())
+            .then(data=>{
+                console.info(data);
+                for(let j in data)
+                {
+                for(let i in data[j].items)
+                {
+                        var newtr = document.createElement('tr');
+                        document.getElementById("trh").appendChild(newtr);
+                        var newtd = document.createElement('td');
+                        var t = document.createTextNode(data[j].items[i].name);
+                        newtd.appendChild(t);
+                        document.getElementById("trh").appendChild(newtd);
+
+                       
+
+                         var newtd = document.createElement('td');
+                        var bt = document.createElement('input');
+                        bt.type="text";
+                        bt.value=data[j].items[i].quantity;
+                        bt.style.width="50px";
+                        newtd.appendChild(bt);
+                        document.getElementById("trh").appendChild(newtd);
+                       
+                         var newtd = document.createElement('td');
+                         newtd.id=data[j].items[i].name+"price";
+                         var t = document.createTextNode(data[j].items[i].price);
+                        newtd.appendChild(t);
+                        document.getElementById("trh").appendChild(newtd);
+
+                        
+                        
+                       
+                    //<td><input type="button" value="Remove" class="btn" onclick="RemoveRow(this)"></button></td>
+                
+                }
+                var newtd = document.createElement('td');
+                        
+                         var t = document.createTextNode("total bill " + data[j].bill);
+                        newtd.appendChild(t);
+                    document.getElementById("trh").appendChild(newtd);
+                
+                }
+                
+                
+            })
+        }
+    </script>
+</head>
+
+<body onload="fet()">
+    <!-- header section starts  -->
+
+    <header class="header">
+
+        <a href="#" class="logo">
+            <img src="images/logo.png" alt="">
+        </a>
+
+        <nav class="navbar">
+             <a href="/">home</a>
+            <a href="/purchase">Purchase items</a>
+            <a href="/reservation">Reservation</a>
+            <a href="/cart">Cart</a>
+            <a href="/#about">About Us</a>
+            <a href="/#contact">Contact Us</a>
+            <a href="/login">Login</a>
+        </nav>
+
+
+        <div class="icons">
+            <div class="fas fa-search" id="search-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- product section starts  -->
+
+    <section class="products" id="products">
+
+        <h1 class="heading"> Your <span> Bill</span> </h1>
+        <div class="container">
+    
+            <table  id="trh" class="cart_table" cellspacing="20px" width="100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                
+                
+            </table>
+
+            <table class="cart_table" cellspacing="20px" width="100%">
+               
+                
+            </table>
+
+        </div>
+    </section>
+
+    <!-- product section ends -->
+    <!-- footer section starts  -->
+
+    <section class="footer">
+        <div class="credit">2022@all rights reserved.Created Using Html and CSS
+            <p><span>Contact us on : </span>0261-235758 <span>Mail us on : </span>@gmail.com </p>
+        </div>
+    </section>
+
+    <!-- footer section ends -->
+
+
+    <!-- custom js file link  -->
+    
+    <script src="js/script.js"></script>
+</body>
+
+</html>

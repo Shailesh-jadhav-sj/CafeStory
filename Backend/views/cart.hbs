@@ -52,6 +52,18 @@
             }
         }
         }
+        function bill()
+        {
+            var firstName = getCookie("name");
+            fetch('/order/order/'+ firstName,{
+	method:'POST'})
+	        .then(res=>{
+                if(res.status==201)
+                {
+                    alert('order placed succsessfully ');
+                }
+            });
+        }
         function fet()
         {
             var firstName = getCookie("name");
@@ -233,7 +245,7 @@
                 </tr>
                 <tr>
                     <th>
-                        <input type="button" value="CheckOut" class="btn">
+                        <input type="button" value="CheckOut" onclick="bill()" class="btn">
                     </th>
                 </tr>
             </table>
