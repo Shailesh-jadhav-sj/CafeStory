@@ -59,10 +59,12 @@
             fetch('/api/cart/'+ firstName)
 	        .then(res=>res.json())
             .then(data=>{
-                console.info(data.items);
+                console.info(data);
 
                 for(let i in data.items)
                 {
+                        var newtr = document.createElement('tr');
+                        document.getElementById("trh").appendChild(newtr);
                         var newtd = document.createElement('td');
                         var t = document.createTextNode(data.items[i].name);
                         newtd.appendChild(t);
@@ -73,7 +75,29 @@
                         bt.type="button";
                         bt.value="-";
                         bt.id="minus";
-                        bt.onclick = "minus()"
+                         bt.onclick = function (){
+                            
+                            document.getElementById(data.items[i].name+"qty").value = parseInt(document.getElementById(data.items[i].name+"qty").value) - 1;
+                            //document.getElementById(data.items[i].name+"price").innerHTML = parseInt(document.getElementById(data.items[i].name+"qty").value)* data.items[i].price;
+                            
+                                fetch('/api/cart/'+ firstName  , {
+                                method: 'PUT',
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({"productId":data.items[i].productId,"qty":document.getElementById(data.items[i].name+"qty").value})
+                                })
+                                .then(res => {
+                                    if(res.status==201)
+                                    {
+                                        location.href='./cart';
+                                    }
+                                
+                                }) 
+                               
+                        
+                        
+                        }
                         bt.className = "btn";
                         newtd.appendChild(bt);
                        
@@ -91,27 +115,60 @@
                         bt.value="+";
                         bt.id="plus";
                         bt.onclick = function (){
-                            count++;
-                            document.getElementById(data.items[i].name+"qty").value += parsInt(1) ;
-                            document.getElementById(data.items[i].name+"price").innerHTML = count*price;
+                            
+                            document.getElementById(data.items[i].name+"qty").value = parseInt(document.getElementById(data.items[i].name+"qty").value) + 1;
+                             //document.getElementById(data.items[i].name+"price").innerHTML = parseInt(document.getElementById(data.items[i].name+"qty").value)* data.items[i].price;
+                            fetch('/api/cart/'+ firstName  , {
+                                method: 'PUT',
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({"productId":data.items[i].productId,"qty":document.getElementById(data.items[i].name+"qty").value})
+                                })
+                                .then(res => {
+                                    if(res.status==201)
+                                    {
+                                        location.href='./cart';
+                                    }
+                                
+                                }) 
                         }
                         bt.className = "btn";
                         newtd.appendChild(bt);
                         document.getElementById("trh").appendChild(newtd);
 
                         
+                         var newtd = document.createElement('td');
+                         newtd.id=data.items[i].name+"price";
+                         var t = document.createTextNode(data.items[i].price);
+                        newtd.appendChild(t);
+                        document.getElementById("trh").appendChild(newtd);
 
-
-                        
-                   // <td>
-                     //   <input type="button" value="-" id="moins" onclick="minus()" class="btn">
-                       // <input type="text" value="1" id="count" style="width: 20px;">
-                       // <input type="button" value="+" id="plus" onclick="plus()" class="btn">
-                   // </td>
-                    //<td id="price">10</td>
+                        var newtd = document.createElement('input');
+                        newtd.id=data.items[i].name+"remove";
+                        newtd.type="button";
+                        newtd.value="Remove";
+                        newtd.className="btn";
+                        newtd.onclick=function(){
+                                fetch('/api/cart/'+ firstName + '/' +data.items[i].productId , {
+                                method: 'DELETE',
+                                })
+                                .then(res => {
+                                    if(res.status==201)
+                                    {
+                                        location.href='./cart';
+                                    }
+                                
+                                }) 
+                               
+                        };
+                         document.getElementById("trh").appendChild(newtd);
+                       
                     //<td><input type="button" value="Remove" class="btn" onclick="RemoveRow(this)"></button></td>
                 
                 }
+                document.getElementById("total").value = data.bill;
+                
                 
             })
         }
@@ -159,29 +216,20 @@
         <h1 class="heading"> Your <span> Cart</span> </h1>
         <div class="container">
     
-            <table class="cart_table" cellspacing="20px" width="100%">
+            <table  id="trh" class="cart_table" cellspacing="20px" width="100%">
                 <tr>
                     <th>Name</th>
                     <th>Qty</th>
                     <th>Price</th>
                     <th></th>
                 </tr>
-                <tr id="trh">
-                    <td id="prod_name">Latte</td>
-                    <td>
-                        <input type="button" value="-" id="moins" onclick="minus()" class="btn">
-                        <input type="text" value="1" id="count" style="width: 20px;">
-                        <input type="button" value="+" id="plus" onclick="plus()" class="btn">
-                    </td>
-                    <td id="price">10</td>
-                    <td><input type="button" value="Remove" class="btn" onclick="RemoveRow(this)"></button></td>
-                </tr>
+                
                 
             </table>
 
             <table class="cart_table" cellspacing="20px" width="100%">
                 <tr>
-                    <th>Total Amount : </th>
+                    <th>Total Amount : <input type="text" value=" " id="total" /></th>
                 </tr>
                 <tr>
                     <th>

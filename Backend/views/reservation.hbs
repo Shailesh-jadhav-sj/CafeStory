@@ -12,6 +12,52 @@
 
     <link rel="stylesheet" href="css/reservation.css">
 </head>
+<script>
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+        
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        }
+    function Book()
+    {
+
+        var From = document.getElementById('From').value;
+        var To = document.getElementById('To').value;
+        var Date = document.getElementById('Date').value;
+        var Table = document.getElementById('Table').value;
+        
+
+        var firstName = getCookie("name");
+        fetch('/reserv/' + firstName,{
+        method:'POST',
+        headers:{
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"From": From,"To": To,"Date1": Date,"Table": Table})
+        
+        })
+        .then(res=>{if(res.status==201)
+        {
+            alert("booked successful");
+        }
+        else if(res.status==406)
+        {
+            alert("Table already booked");
+        }
+        })
+    }
+</script>
 
 <body>
     <!-- header section starts  -->
@@ -56,7 +102,7 @@
             <form action="">
                 <div class="form-group">
                     <label for="">From :</label>
-                    <select id='from' onchange="" name="From" class="form-control">
+                    <select id='From' onchange="" name="From" class="form-control">
                         <option value="0">--- Select Time ---</option>
                         <option value="9">9 AM</option>
                         <option value="10">10 AM</option>
@@ -76,7 +122,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">To :</label>
-                    <select id='to' onchange="" name="To" class="form-control">
+                    <select id='To' onchange="" name="To" class="form-control">
                         <option value="0">--- Select Time ---</option>
                         <option value="9">9 AM</option>
                         <option value="10">10 AM</option>
@@ -96,14 +142,22 @@
                 </div>
                 <div class="form-group">
                     <label for="">Date :</label>
-                    <input type="date" class="form-control" name="Date" id="">
+                    <input type="date" class="form-control" name="Date" id="Date">
                 </div>
                 <div class="form-group">
                     <label for="">Table No :</label>
-                    <input type="number" class="form-control" name="Table" id="">
+                    <select id='Table' onchange="" name="Table" class="form-control">
+                        <option value="0">--- Select Table---</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                       
+                    </select>
                 </div>
                 
-                <input type="submit" class="btn" value="Book Now">
+                <input type="button" onclick="Book()" class="btn" value="Book Now">
             </form>
         </div>	
 

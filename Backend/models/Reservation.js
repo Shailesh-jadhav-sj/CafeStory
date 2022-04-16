@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReservSchema = new Schema({
-    user_id: {
+    userId: {
         type: String,
         ref:"User"
     },
     From: {
-        type: String,
+        type: Number,
         required: true
     },
     To:{
-        type: String,
+        type: Number,
         required: true
     },
-    Date: {
+    Date1: {
         type: Date,
         required: true
     },
