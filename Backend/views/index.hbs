@@ -39,10 +39,21 @@
               var firstName = getCookie("name");
              
               if(firstName) {
+
+                  if(firstName=="admin")
+                  {
+                        document.getElementById("login").style.display = "none";
+                        document.getElementById("admin").style.display = "inline";
+                        
+                        document.getElementById("logout").style.display = "inline";
+                  }
+                  else
+                  {
                     
                     document.getElementById("login").style.display = "none";
+                    document.getElementById("admin").style.display = "none";
                     document.getElementById("logout").style.display = "inline";
-                    
+                  }
 
                     //document.cookie = "login=; max-age=0";
                 } else {
@@ -71,6 +82,7 @@
             <a href="/#contact">Contact Us</a>
             <a id="login"  href="/login">Login</a>
             <a id="logout" href="/logout">Logout</a>
+            <a id="admin" href="#">Admin</a>
         </nav>
 
         <div class="icons">

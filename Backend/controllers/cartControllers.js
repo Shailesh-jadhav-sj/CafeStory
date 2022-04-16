@@ -31,6 +31,7 @@ module.exports.add_cart_item = async (req,res) => {
         }
         const price = item.price;
         const name = item.title;
+        const qty = req.body.quantity;
         
         if(cart){
             // if cart exists for the user
@@ -40,7 +41,7 @@ module.exports.add_cart_item = async (req,res) => {
             if(itemIndex > -1)
             {
                 let productItem = cart.items[itemIndex];
-                productItem.quantity += quantity;
+                productItem.quantity = parseInt(productItem.quantity) + parseInt(qty);
                 cart.items[itemIndex] = productItem;
             }
             else {

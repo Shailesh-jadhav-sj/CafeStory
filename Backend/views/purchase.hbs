@@ -13,11 +13,152 @@
     <link rel="stylesheet" href="css/purchase.css">
 </head>
 <script>
+    var val;
+    function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    }
+
     function all() {
-			
+			let list;
 	fetch('/api/items')
 	.then(res=>res.json())
-	.then(data => console.info(data));
+	.then(data =>
+    {
+        console.info(data);
+        
+       for(let i in data)
+       {
+
+           var newDiv1 = document.createElement('div');
+           newDiv1.className = 'box';
+
+           var newDiv = document.createElement('div');
+           newDiv.className = 'content';
+
+          
+
+        var img = document.createElement('img');
+        img.className="image";
+        img.src="./images/"+data[0].title+".jpg";
+    
+
+        newDiv.appendChild(img);
+        
+
+        var newh2 = document.createElement('p');
+        var t = document.createTextNode(data[i].title);
+        newh2.appendChild(t);
+        newh2.className = 'title';
+        newh2.style.color='white';
+        newDiv.appendChild(newh2);
+
+        var newh2 = document.createElement('p');
+       var t = document.createTextNode(data[i].description);
+       newh2.appendChild(t);
+       newDiv.appendChild(newh2);
+
+       var newh2 = document.createElement('p');
+       var s = document.createElement('span');
+       
+       var t = document.createTextNode("Main Ingredient : ");
+       s.appendChild(t);
+       var p = document.createTextNode(data[i].ingredient);
+       newh2.appendChild(s);
+       newh2.appendChild(p);
+       newDiv.appendChild(newh2);
+
+         var newh2 = document.createElement('p');
+         newh2.style.display="inline-block";
+       var t = document.createTextNode("Price : ");
+        var s = document.createElement('span');
+       s.appendChild(t);
+       var p = document.createTextNode(data[i].price);
+       var t = document.createTextNode(" INR ");
+       
+       var newh3 = document.createElement('p');
+       newh3.style.float = "right";
+       var t1 = document.createTextNode("Qty : ");
+       newh3.appendChild(t1);
+
+       var inh3 = document.createElement('input');
+       inh3.type="number";
+        inh3.value=1;
+        inh3.min=1;
+       inh3.id=data[i].title;
+       inh3.style.width="50px";
+
+
+       newh2.appendChild(s);
+       newh2.appendChild(p);
+
+        newh2.appendChild(t);
+       newDiv.appendChild(newh2);
+       newh3.appendChild(inh3);
+
+       newDiv.appendChild(newh3);
+       
+
+
+       var newh2 = document.createElement('br');
+       newDiv.appendChild(newh2);
+
+       var newh2 = document.createElement('button');
+       newh2.onclick=function(){
+           alert(data[i]._id);
+           var v = document.getElementById(data[i].title).value;
+           
+            var firstName = getCookie("name");
+            fetch('/api/cart/'+ firstName,{
+            method:'POST',
+            headers:{
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"productId":data[i]._id,"quantity":v})
+            }) 
+            .then(res=> {
+                if(res.status==201)
+                {
+                    alert('added success fully');
+                    location.href="./cart";
+                }
+                else
+                {
+                    alert('adding failed');
+                }
+            }) 
+          
+       };
+       newh2.className="btn";
+       var t = document.createTextNode("Add to Cart");
+       newh2.appendChild(t);
+       newDiv.appendChild(newh2);
+
+
+
+
+
+
+
+        newDiv1.appendChild(newDiv);
+        document.getElementById("id1").appendChild(newDiv1);
+        console.info(data[i].title);
+        
+       }
+       
+    })
 	}
 </script>
 <body onload="all()">
@@ -60,63 +201,15 @@
 
         <h1 class="heading"> Our <span> Menu</span> </h1>
 
-        <div class="box-container">
+        <div id = "id1" class="box-container">
 
 
-            {{#each projects.skills}}
-                {{this}} <br>
-            {{/each}}
+           
+            
+            
+            
 
-            <div class="box">
-                <div class="image">
-                    <img src="./images/cappuccino.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="title">Expresso</a>
-                    <p>This espresso-based drink is similar to a latte, but the frothy top layer is
-                        thicker. The standard ratio is equal parts espresso, steamed milk, and foam.</p>
-                    <p><span>Main ingredient : </span>Cocoa powder, instant coffee powder, milk</p>
-                    <p><span>Calories : </span>130 Calories</p>
-                    <p style="display: inline-block;"><span>Price : </span>150 ₹</p>
-                    <p style="float: right;">Qty : <input type="number" name="" id="" value="1" style="width: 50px;">
-                    </p>
-                    <a href="cart.html" class="btn">Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src="./images/expresso.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="title">Cappuccino</a>
-                    <p>This espresso-based drink is similar to a latte, but the frothy top layer is
-                        thicker. The standard ratio is equal parts espresso, steamed milk, and foam.</p>
-                    <p><span>Main ingredient : </span>Steamed milk foam, Hot milk, Double espresso</p>
-                    <p><span>Calories : </span>130 Calories</p>
-                    <p style="display: inline-block;"><span>Price : </span>200 ₹</p>
-                    <p style="float: right;">Qty : <input type="number" name="" id="" value="1" style="width: 50px;">
-                    </p>
-                    <a href="cart.html" class="btn">Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src="./images/latte.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="title">Latte</a>
-                    <p>This espresso-based drink is similar to a latte, but the frothy top layer is
-                        thicker. The standard ratio is equal parts espresso, steamed milk, and foam.</p>
-                    <p><span>Main ingredient : </span>Coffee, Milk, Espresso</p>
-                    <p><span>Calories : </span>130 Calories</p>
-                    <p style="display: inline-block;"><span>Price : </span>180 ₹</p>
-                    <p style="float: right;">Qty : <input type="number" name="" id="" value="1" style="width: 50px;">
-                    </p>
-                    <a href="cart.html" class="btn">Add to Cart</a>
-                </div>
-            </div>
+            
 
         </div>
 
