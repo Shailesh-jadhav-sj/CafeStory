@@ -8,6 +8,7 @@ module.exports.post_item = (req,res) => {
     console.log("called");
     const newItem = new Item(req.body);
     newItem.save().then(item => res.json(item));
+    res.status(201).send("added");
 }
 
 module.exports.update_item = (req,res) => {

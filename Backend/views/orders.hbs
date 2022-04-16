@@ -80,7 +80,7 @@
                 }
                 var newtd = document.createElement('td');
                         
-                         var t = document.createTextNode("total bill " + data[j].bill);
+                         var t = document.createTextNode( data[j].bill);
                         newtd.appendChild(t);
                     document.getElementById("trh").appendChild(newtd);
                 
@@ -130,7 +130,7 @@
 
     <section class="products" id="products">
 
-        <h1 class="heading"> Your <span> Bill</span> </h1>
+        <h1 class="heading"> Your <span> Bills</span> </h1>
         <div class="container">
     
             <table  id="trh" class="cart_table" cellspacing="20px" width="100%">
@@ -138,7 +138,7 @@
                     <th>Name</th>
                     <th>Qty</th>
                     <th>Price</th>
-                    <th></th>
+                    <th>Total amount </th>
                 </tr>
                 
                 
