@@ -11,34 +11,46 @@
 	function makePostCall() {
 		var e = document.getElementById("email").value;
 		var p = document.getElementById("password").value;
-		if(e=="admin"&&p=="admin")
+		alert(e);
+		if(!e)
 		{
-			document.cookie = "name=admin;" ;
-			location.href="./#about";
+			alert("please enter email");
 		}
-	
-	fetch('/api/login',{
-	method:'POST',
-	headers:{
-	'Content-Type': 'application/json'
-	},
-	body: JSON.stringify({"email":e,"password":p})
-	})
-	.then(res=> res.json())
-	.then(data => data.user)
-	.then(u =>{
-		console.log(u);
-		if(u !=null)
+		else if(!p)
 		{
-			document.cookie = "name=" + encodeURIComponent(u.id);
-			location.href="./#about";
+			alert("please enter password");
 		}
 		else
 		{
-			alert("invalid credential");
+					if(e=="admin"&&p=="admin")
+					{
+						document.cookie = "name=admin;" ;
+						location.href="./#about";
+					}
+				
+				fetch('/api/login',{
+				method:'POST',
+				headers:{
+				'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({"email":e,"password":p})
+				})
+				.then(res=> res.json())
+				.then(data => data.user)
+				.then(u =>{
+					console.log(u);
+					if(u !=null)
+					{
+						document.cookie = "name=" + encodeURIComponent(u.id);
+						location.href="./#about";
+					}
+					else
+					{
+						alert("invalid credential");
+					}
+			}
+			);
 		}
-  }
-  );
 	}
 </script>
 <body>

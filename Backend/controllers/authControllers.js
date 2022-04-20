@@ -8,13 +8,13 @@ module.exports.signup = (req,res) => {
     const { name, email, password } = req.body;
 
     if(!name || !email || !password){
-        res.status(40).json({msg: 'Please enter all fields'});
+        res.status(400).json({msg: 'Please enter all fields'});
     }
 
     console.log(req.body);
     User.findOne({email})
     .then(user => {
-        if(user) return res.status(400).json({msg: 'User already exists'});
+        if(user) return res.status(400).send({msg: 'User already exists',status:400});
 
         const newUser = new User({ name, email, password });
         console.log(process.env.jwtsecret);
@@ -33,6 +33,7 @@ module.exports.signup = (req,res) => {
                                 if(err) throw err;
                                 res.status(201).send({
                                     token,
+                                    status:201,
                                     user: {
                                         id: user._id,
                                         name: user.name,

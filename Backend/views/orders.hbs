@@ -47,10 +47,17 @@
                 console.info(data);
                 for(let j in data)
                 {
+                    var newtd = document.createElement('tr');
+ document.getElementById("trh").appendChild(newtd);
                 for(let i in data[j].items)
                 {
                         var newtr = document.createElement('tr');
                         document.getElementById("trh").appendChild(newtr);
+
+                        var newtd = document.createElement('td');
+                        document.getElementById("trh").appendChild(newtd);
+
+
                         var newtd = document.createElement('td');
                         var t = document.createTextNode(data[j].items[i].name);
                         newtd.appendChild(t);
@@ -77,12 +84,30 @@
                        
                     //<td><input type="button" value="Remove" class="btn" onclick="RemoveRow(this)"></button></td>
                 
+                
                 }
-                var newtd = document.createElement('td');
-                        
-                         var t = document.createTextNode( data[j].bill);
-                        newtd.appendChild(t);
-                    document.getElementById("trh").appendChild(newtd);
+               
+                
+            
+ var newtd = document.createElement('tr');
+ document.getElementById("trh").appendChild(newtd);
+               var newth = document.createElement('th');
+                newtd.appendChild(newth);
+                var newth = document.createElement('th');
+                newtd.appendChild(newth);
+                var newth = document.createElement('th');
+                var t = document.createTextNode( "Total Amount");      
+                newth.appendChild(t); 
+                newtd.appendChild(newth);
+                
+                var newth = document.createElement('th');
+                var t = document.createTextNode( data[j].bill);
+                newth.appendChild(t); 
+                newtd.appendChild(newth);
+                document.getElementById("trh").appendChild(newtd);
+
+
+
                 
                 }
                 
@@ -135,10 +160,11 @@
     
             <table  id="trh" class="cart_table" cellspacing="20px" width="100%">
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Qty</th>
                     <th>Price</th>
-                    <th>Total amount </th>
+                   
                 </tr>
                 
                 

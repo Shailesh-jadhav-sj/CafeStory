@@ -7,9 +7,24 @@
 </head>
 <script>
 	function makePostCall() {
+		
 			var e = document.getElementById("email").value;
 		var p = document.getElementById("password").value;
 		var n = document.getElementById("name").value;
+		if(!e)
+		{
+			alert("enter email");
+		}
+		else if(!p)
+		{
+			alert("please enter password");
+		}
+		else if(!n)
+		{
+			alert("please enter name");
+		}
+		else
+		{
 	
 	fetch('/api/register',{
 	method:'POST',
@@ -18,18 +33,17 @@
 	},
 	body: JSON.stringify({"name":n,"email":e,"password":p})
 	})
-	.then(res=>{
-		
-		if(res.status==201)
+	.then(res=>res.json())
+	.then(data=>{
+		if(data.status==201)
 		{
 			location.href = "./login";
 		}
 		else
-		{
-		
+		{	
+			alert(data.msg);
+		}});
 		}
-	})
-	.then(data=>console.log(res));
 	}
 </script>
 
