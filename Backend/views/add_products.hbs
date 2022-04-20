@@ -41,36 +41,40 @@
         {
             alert("Enter Valid Title");
         }
-        if(!description)
+        else if(!description)
         {
             alert("Enter Valid Description");
         }
-        if(!ingredient)
+        else if(!ingredient)
         {
             alert("Enter Valid Ingredients");
         }
-        if(!price)
+        else if(!price)
         {
             alert("Enter Valid Price");
         }
-       
-        fetch('/api/items' ,{
-        method:'POST',
-        headers:{
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"title": title,"description": description,"ingredient": ingredient,"price": price})
+        else{
+
         
-        })
-        .then(res=>{if(res.status==201)
-        {
-            alert("addedsuccessful");
+        
+            fetch('/api/items' ,{
+            method:'POST',
+            headers:{
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"title": title,"description": description,"ingredient": ingredient,"price": price})
+            
+            })
+            .then(res=>{if(res.status==201)
+            {
+                alert("addedsuccessful");
+            }
+            else if(res.status==406)
+            {
+                alert("Table already booked");
+            }
+            })
         }
-        else if(res.status==406)
-        {
-            alert("Table already booked");
-        }
-        })
     }
 </script>
 

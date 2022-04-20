@@ -38,40 +38,44 @@
         var Date = document.getElementById('Date').value;
         var Table = document.getElementById('Table').value;
         
-        if(!From)
+        
+        if(From==0)
         {
             alert("Enter Valid Time");
         }
-        if(!To)
+        else if(To==0)
         {
             alert("Enter Valid Time");
         }
-        if(!Date)
+        else if(!Date)
         {
             alert("Enter Date For Reservation");
         }
-        if(!Table)
+        else if(Table==0)
         {
             alert("Enter Table Number");
         }
-        var firstName = getCookie("name");
-        fetch('/reserv/' + firstName,{
-        method:'POST',
-        headers:{
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"From": From,"To": To,"Date1": Date,"Table": Table})
-        
-        })
-        .then(res=>{if(res.status==201)
+        else
         {
-            alert("booked successful");
+            var firstName = getCookie("name");
+            fetch('/reserv/' + firstName,{
+            method:'POST',
+            headers:{
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"From": From,"To": To,"Date1": Date,"Table": Table})
+            
+            })
+            .then(res=>{if(res.status==201)
+            {
+                alert("booked successful");
+            }
+            else if(res.status==406)
+            {
+                alert("Table already booked");
+            }
+            })
         }
-        else if(res.status==406)
-        {
-            alert("Table already booked");
-        }
-        })
     }
 </script>
 
