@@ -37,19 +37,24 @@
         var To = document.getElementById('To').value;
         var Date = document.getElementById('Date').value;
         var Table = document.getElementById('Table').value;
+        var todayDate = new window.Date(); //Today Date  
+        
+        //Date validation
+        
+        //time validation
         
         
-        if(From==0)
+        if(From==0 && From<To)
         {
             alert("Enter Valid Time");
         }
         else if(To==0)
         {
             alert("Enter Valid Time");
-        }
+        }    
         else if(!Date)
         {
-            alert("Enter Date For Reservation");
+            alert("Enter Valid  Date For Reservation");
         }
         else if(Table==0)
         {
