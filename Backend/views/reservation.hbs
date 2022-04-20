@@ -43,16 +43,14 @@
         
         //time validation
         
+        var todaydate=new window.Date().toLocaleDateString('en-CA');
         
-        if(From==0 && From<To)
+        if( From>=To )
         {
-            alert("Enter Valid Time");
+            
+                alert("Enter Valid Time");
         }
-        else if(To==0)
-        {
-            alert("Enter Valid Time");
-        }    
-        else if(!Date)
+        else if(Date<=todaydate)
         {
             alert("Enter Valid  Date For Reservation");
         }
@@ -129,7 +127,7 @@
                     <label for="">From :</label>
                     <select id='From' onchange="" name="From" class="form-control">
                         <option value="0">--- Select Time ---</option>
-                        <option value="9">9 AM</option>
+                        {{!-- <option value="9">9 AM</option> --}}
                         <option value="10">10 AM</option>
                         <option value="11">11 AM</option>
                         <option value="12">12 PM</option>
@@ -149,7 +147,7 @@
                     <label for="">To :</label>
                     <select id='To' onchange="" name="To" class="form-control">
                         <option value="0">--- Select Time ---</option>
-                        <option value="9">9 AM</option>
+                        {{!-- <option value="9">9 AM</option> --}}
                         <option value="10">10 AM</option>
                         <option value="11">11 AM</option>
                         <option value="12">12 PM</option>
