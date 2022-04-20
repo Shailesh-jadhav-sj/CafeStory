@@ -14,6 +14,7 @@
 </head>
 <script>
     function getCookie(name) {
+        
         // Split cookie string and get all individual name=value pairs in an array
         var cookieArr = document.cookie.split(";");
         
@@ -37,7 +38,22 @@
         var Date = document.getElementById('Date').value;
         var Table = document.getElementById('Table').value;
         
-
+        if(!From)
+        {
+            alert("Enter Valid Time");
+        }
+        if(!To)
+        {
+            alert("Enter Valid Time");
+        }
+        if(!Date)
+        {
+            alert("Enter Date For Reservation");
+        }
+        if(!Table)
+        {
+            alert("Enter Table Number");
+        }
         var firstName = getCookie("name");
         fetch('/reserv/' + firstName,{
         method:'POST',

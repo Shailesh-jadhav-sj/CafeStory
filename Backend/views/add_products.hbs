@@ -37,7 +37,22 @@
         var ingredient = document.getElementById('ingredient').value;
         var price = document.getElementById('price').value;
         
-
+        if(!title)
+        {
+            alert("Enter Valid Title");
+        }
+        if(!description)
+        {
+            alert("Enter Valid Description");
+        }
+        if(!ingredient)
+        {
+            alert("Enter Valid Ingredients");
+        }
+        if(!price)
+        {
+            alert("Enter Valid Price");
+        }
        
         fetch('/api/items' ,{
         method:'POST',
