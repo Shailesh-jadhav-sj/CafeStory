@@ -32,6 +32,34 @@
     }
 
     function all() {
+
+              var firstName = getCookie("name");
+             
+              if(firstName) {
+
+                  if(firstName=="admin")
+                  {
+                        document.getElementById("login").style.display = "none";
+                        document.getElementById("admin").style.display = "inline";
+                        document.getElementById("add").style.display="inline";
+                        document.getElementById("logout").style.display = "inline";
+                  }
+                  else
+                  {
+                    
+                    document.getElementById("login").style.display = "none";
+                    document.getElementById("admin").style.display = "none";
+                    document.getElementById("add").style.display = "none";
+                    document.getElementById("logout").style.display = "inline";
+                  }
+
+                    //document.cookie = "login=; max-age=0";
+                } else {
+                  
+                     document.getElementById("logout").style.display = "none";
+                    
+            }
+    
 			let list;
 	fetch('/api/items')
 	.then(res=>res.json())
@@ -52,7 +80,7 @@
 
         var img = document.createElement('img');
         img.className="image";
-        img.src="./images/"+data[0].title+".jpg";
+        img.src="images/"+data[i].image;
     
 
         newDiv.appendChild(img);
@@ -170,7 +198,7 @@
             <img src="images/logo.png" alt="">
         </a>
 
-        <nav class="navbar">
+         <nav class="navbar">
             <a href="/">home</a>
             <a href="/purchase">Purchase items</a>
             <a href="/reservation">Reservation</a>
@@ -179,7 +207,11 @@
             <a href="/#contact">Contact Us</a>
             <a id="login"  href="/login">Login</a>
             <a id="logout" href="/logout">Logout</a>
+            <a id="admin" href="#">Admin</a>
+            <a id="add" href="/add_products">Add Product</a>
+            
         </nav>
+
 
         <div class="icons">
             <div class="fas fa-search" id="search-btn"></div>

@@ -1,7 +1,31 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const multer =  require('multer');
+const path = require("path");
+const Razorpay = require('razorpay'); 
+var bodyParser = require('body-parser');
 
 require("dotenv").config();
+const razorpayInstance = new Razorpay({
+  
+  // Replace with your key_id
+  key_id: process.env.key_id,
+
+  // Replace with your key_secret
+  key_secret: process.env.key_secret
+});
+
+const storage = multer.diskStorage({
+  destination: (req,file,cb)=>{
+    cb(null,'./public/images')
+  },
+  filename: (req,file,cb)=>{
+    console.log(file);
+    cb(null,(Date.now() + path.extname(file.originalname)))
+  },
+})
+const upload = multer({storage: storage}); 
+
 
 const authRoutes = require('./routes/auth');
 const itemRoutes = require('./routes/item');
@@ -9,8 +33,31 @@ const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/order');
 const reservRoutes = require('./routes/Reserv');
 
+
+
+
 const app = express();
 app.use(express.json());
+
+app.use(bodyParser.json(),bodyParser.urlencoded({ extended: true }));
+app.post('/createOrder', (req, res)=>{ 
+  
+  // STEP 1:
+  const {amount,currency,receipt, notes}  = req.body;      
+        
+  // STEP 2:    
+  razorpayInstance.orders.create({amount, currency, receipt, notes}, 
+      (err, order)=>{
+        
+        //STEP 3 & 4: 
+        if(!err)
+         { console.log("order"+order);
+          res.json(order)}
+        else
+          res.send(err);
+      }
+  )
+});
 
 app.use('/api', authRoutes);
 app.use('/api', itemRoutes);
@@ -20,7 +67,7 @@ app.use('/reserv',reservRoutes);
 
 
 // ---------------------------------
-const path = require("path");
+
 const static_path=path.join(__dirname,"public");
 app.use(express.static(static_path));
 app.set("view engine","hbs");
@@ -76,3 +123,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(port, () => 
   console.log(`Server running on http://localhost:${port}`)))
   .catch((err) => console.log(err));
+
+  

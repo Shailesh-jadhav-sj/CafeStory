@@ -8,7 +8,11 @@ const stripe = require('stripe')(key);
 
 module.exports.get_orders = async (req,res) => {
     const userId = req.params.id;
-    Order.find({userId}).sort({date:-1}).then(orders => res.json(orders));
+    Order.find({userId}).sort({date_added:-1}).then(orders => res.json(orders));
+}
+
+module.exports.get_all_orders = async (req,res) => {
+    Order.find().sort({date_added:-1}).then(orders => res.json(orders));
 }
 
 module.exports.checkout = async (req,res) => {

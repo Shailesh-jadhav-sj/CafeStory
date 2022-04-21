@@ -7,7 +7,9 @@
     "hbs": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
+    "multer": "^1.4.4",
     "nodemon": "^2.0.15",
+    "razorpay": "^2.8.1",
     "stripe": "^8.214.0",
     "validator": "^13.7.0"
   },

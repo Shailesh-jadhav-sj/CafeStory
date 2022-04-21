@@ -12,7 +12,8 @@
 
     <link rel="stylesheet" href="css/cart.css">
     <script>
-        
+
+  
         var count = 1;
         
         var price=10;
@@ -35,7 +36,11 @@
                 p.parentNode.removeChild(p);
             }
     </script>
+    
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
+
+
         function getCookie(name) {
         // Split cookie string and get all individual name=value pairs in an array
         var cookieArr = document.cookie.split(";");
@@ -52,21 +57,49 @@
             }
         }
         }
-        function bill()
+        
+        
+     
+     var razorpayObject;
+        function bill(e)
         {
-            var firstName = getCookie("name");
-            fetch('/order/order/'+ firstName,{
-	method:'POST'})
-	        .then(res=>{
-                if(res.status==201)
-                {
-                    alert('order placed succsessfully ');
-                    location.href="./orders";
-                }
-            });
+      
+        console.info(razorpayObject);
+        razorpayObject.open();
+        
+        
+           
         }
         function fet()
         {
+            
+              var firstName = getCookie("name");
+             
+              if(firstName) {
+
+                  if(firstName=="admin")
+                  {
+                        document.getElementById("login").style.display = "none";
+                        document.getElementById("admin").style.display = "inline";
+                        documet.getElementById("add").style.display="inline";
+                        document.getElementById("logout").style.display = "inline";
+                  }
+                  else
+                  {
+                    
+                    document.getElementById("login").style.display = "none";
+                    document.getElementById("admin").style.display = "none";
+                    document.getElementById("add").style.display = "none";
+                    document.getElementById("logout").style.display = "inline";
+                  }
+
+                    //document.cookie = "login=; max-age=0";
+                } else {
+                  
+                     document.getElementById("logout").style.display = "none";
+                    
+            }
+    
             var firstName = getCookie("name");
             
             fetch('/api/cart/'+ firstName)
@@ -181,10 +214,58 @@
                 
                 }
                 document.getElementById("total").value = data.bill;
-                
+                document.getElementById("order_id").value = data.userId+data.bill;
+                   var options = {
+  
+       "key": "rzp_test_7vAhqXhMN7C9c4", 
+       "amount": data.bill * 100, 
+       "currency": "INR",
+       "name": "Cafe Story",
+       "description": "Pay ",
+        
+      
+       "handler": function (response){
+           console.log(response)
+            var firstName = getCookie("name");
+            fetch('/order/order/'+ firstName,{
+	method:'POST'})
+	        .then(res=>{
+                if(res.status==201)
+                {
+                    alert('order placed succsessfully ');
+                    location.href="./orders";
+                }
+            });
+           alert("This step of Payment Succeeded");
+       },
+       "prefill": {
+          //Here we are prefilling random contact
+          
+           //name and email id, so while checkout
+         "name": data.userId,  
+       },
+      
+       "theme": {
+           "color": "#C4B168"
+       }
+   };
+
+                  razorpayObject = new Razorpay(options);
+   console.info(razorpayObject);
+   
+   razorpayObject.on('payment.failed', function (response){
+         console.log(response);
+         alert("This step of Payment Failed");
+   });
+   
+       
                 
             })
+
+
         }
+     
+   
     </script>
 </head>
 
@@ -198,13 +279,17 @@
         </a>
 
         <nav class="navbar">
-             <a href="/">home</a>
+            <a href="/">home</a>
             <a href="/purchase">Purchase items</a>
             <a href="/reservation">Reservation</a>
             <a href="/cart">Cart</a>
             <a href="/#about">About Us</a>
             <a href="/#contact">Contact Us</a>
-            <a href="/login">Login</a>
+            <a id="login"  href="/login">Login</a>
+            <a id="logout" href="/logout">Logout</a>
+            <a id="admin" href="#">Admin</a>
+            <a id="add" href="/add_products">Add Product</a>
+            
         </nav>
 
 
@@ -242,6 +327,7 @@
 
             <table class="cart_table" cellspacing="20px" width="100%">
                 <tr>
+                    <input type="txt" id="order_id"/>
                     <th>Total Amount : <input type="text" value=" " id="total" /></th>
                 </tr>
                 <tr>

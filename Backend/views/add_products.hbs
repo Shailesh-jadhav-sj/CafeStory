@@ -12,6 +12,9 @@
 
     <link rel="stylesheet" href="css/add_products.css">
 </head>
+
+
+   
 <script>
     function getCookie(name) {
         // Split cookie string and get all individual name=value pairs in an array
@@ -29,14 +32,20 @@
             }
         }
         }
+    
+       
+
     function Book()
     {
 
+        
         var title = document.getElementById('title').value;
         var description= document.getElementById('description').value;
         var ingredient = document.getElementById('ingredient').value;
         var price = document.getElementById('price').value;
+        var image = document.getElementById('image').value;
         
+
         if(!title)
         {
             alert("Enter Valid Title");
@@ -57,23 +66,15 @@
 
         
         
-            fetch('/api/items' ,{
-            method:'POST',
-            headers:{
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({"title": title,"description": description,"ingredient": ingredient,"price": price})
-            
-            })
-            .then(res=>{if(res.status==201)
-            {
-                alert("addedsuccessful");
-            }
-            else if(res.status==406)
-            {
-                alert("Table already booked");
-            }
-            })
+        fetch('/api/items' ,{
+        method:'POST',
+        headers:{
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"title": title,"description": description,"ingredient": ingredient,"price": price,"image":image})
+        
+        })
+        .then(res=>{if(res.status==201)
         }
     }
 </script>
@@ -138,6 +139,17 @@
                     <input id="price" type="text" class="form-control" placeholder="Add Your Product Price Here">
                 </div>
                 
+                <div class="form-group">
+                    <label for="">select product type :</label>
+                    <select id='image' onchange=""  class="form-control">
+                        <option value="breadacrumb.jpg">breadacrumb</option>
+                        <option value="cappuccion.jpg">cappuccion</option>
+                        <option value="expresso.jpg">expresso</option>
+                        <option value="latte.jpg">latte</option>
+                        <option value="mocaccino.jpg">mocaccino</option>
+                       </select>
+                   
+                </div>
                 <input type="button" onclick="Book()" class="btn" value="Add Product">
             </form>
         </div>	

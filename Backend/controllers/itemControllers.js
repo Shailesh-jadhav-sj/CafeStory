@@ -5,9 +5,9 @@ module.exports.get_items = (req,res) => {
 }
 
 module.exports.post_item = (req,res) => {
-    console.log("called");
+    console.log(req.body);
     const newItem = new Item(req.body);
-    newItem.save().then(item => res.json(item));
+    newItem.save();
     res.status(201).send("added");
 }
 
