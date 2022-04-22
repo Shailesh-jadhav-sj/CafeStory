@@ -35,6 +35,10 @@
 
               var firstName = getCookie("name");
              
+              if(!firstName)
+            {
+                location.href="/login"
+            }
               if(firstName) {
 
                   if(firstName=="admin")

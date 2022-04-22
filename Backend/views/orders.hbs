@@ -68,6 +68,10 @@
             }
     
             var firstName = getCookie("name");
+            if(!firstName)
+            {
+                location.href="/login"
+            }
             if(firstName=="admin")
             {
                 fetch('/order/order/')

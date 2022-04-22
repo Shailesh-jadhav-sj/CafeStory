@@ -33,7 +33,14 @@
         }
         }
     
-       
+     function check()
+     {
+         
+            if(firstName!="admin")
+                  {
+                      location.href="/login"
+                  }
+     }  
 
     function Book()
     {
@@ -79,7 +86,7 @@
     }
 </script>
 
-<body>
+<body onload="check()" >
     <!-- header section starts  -->
 
     <header class="header">
