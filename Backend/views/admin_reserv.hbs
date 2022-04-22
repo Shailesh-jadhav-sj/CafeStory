@@ -70,7 +70,7 @@
             var firstName = getCookie("name");
             if(firstName=="admin")
             {
-                fetch('/order/order/')
+                fetch('/Reserv/')
 	        .then(res=>res.json())
             .then(data=>{
                 console.info(data);
@@ -79,27 +79,37 @@
 
 
                     var newtd = document.createElement('tr');
- document.getElementById("trh").appendChild(newtd);
+                    document.getElementById("trh").appendChild(newtd);
 
-  var newtd = document.createElement('tr');
- document.getElementById("trh").appendChild(newtd);
-               var newth = document.createElement('th');
-                newtd.appendChild(newth);
-                var newth = document.createElement('th');
-                var t = document.createTextNode( "Customer ID : " + data[j].userId );      
+                    var newtd = document.createElement('tr');
+                    document.getElementById("trh").appendChild(newtd);
+                    var newth = document.createElement('th');
+                     var t = document.createTextNode(  data[j].userId );      
                 newth.appendChild(t); 
                 newtd.appendChild(newth);
+
                 var newth = document.createElement('th');
-                var t = document.createTextNode( "Total Amount");      
+               var t = document.createTextNode(  data[j].From );      
+                newth.appendChild(t);
+                newtd.appendChild(newth);
+
+                var newth = document.createElement('th');
+               var t = document.createTextNode(  data[j].To );      
+                newth.appendChild(t);
+                newtd.appendChild(newth);
+
+                var newth = document.createElement('th');
+                const [day, month, year] = data[j].Date1.split('T')
+               var t = document.createTextNode(day);      
+                newth.appendChild(t);
+                newtd.appendChild(newth);
+
+                var newth = document.createElement('th');
+                var t = document.createTextNode(  data[j].Table);      
                 newth.appendChild(t); 
                 newtd.appendChild(newth);
                 
-                var newth = document.createElement('th');
-                var t = document.createTextNode( data[j].bill);
-                newth.appendChild(t); 
-                newtd.appendChild(newth);
-                document.getElementById("trh").appendChild(newtd);
-
+                
 
 
                 for(let i in data[j].items)
@@ -295,15 +305,17 @@
 
     <section class="products" id="products">
 
-        <h1 class="heading"> <span> Bills</span> </h1>
+        <h1 class="heading"> <span>Table Reservation</span> </h1>
         <div class="container">
     
             <table  id="trh" class="cart_table" cellspacing="20px" width="100%">
                 <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Qty</th>
-                    <th>Price</th>
+
+                    <th>customer Id</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Date</th>
+                    <th>Table</th>
                    
                 </tr>
                 

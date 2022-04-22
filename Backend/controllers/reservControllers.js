@@ -1,5 +1,10 @@
 const Reserv = require('../models/Reservation');
 
+module.exports.getall = async (req,res) => {
+   
+    Reserv.find().sort({Date1:-1}).then(reserv => res.json(reserv));
+}
+
 module.exports.add = async (req,res) => {
     const userId = req.params.id;
     //const newReserv = new Reserv(req.body);

@@ -99,6 +99,10 @@ app.get("/reservation",(req,res)=>{
   res.render("reservation");
 });
 
+app.get("/admin_reserv",(req,res)=>{
+  res.render("admin_reserv");
+});
+
 app.get("/cart",(req,res)=>{
   res.render("cart");
 });
