@@ -13,11 +13,15 @@
     "stripe": "^8.214.0",
     "validator": "^13.7.0"
   },
+  "engines": {
+    "node" : "16.13.1"
+  },
   "name": "backend",
   "version": "1.0.0",
   "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node App.js"
   },
   "keywords": [],
   "author": "",
