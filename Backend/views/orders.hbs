@@ -48,6 +48,10 @@
                   {
                         document.getElementById("login").style.display = "none";
                         document.getElementById("admin").style.display = "inline";
+                          document.getElementById("reserv").href = "/admin_reserv";
+                                                  document.getElementById("cart").style.display = "none";
+                        document.getElementById("admin").style.display = "inline";
+                      
                         document.getElementById("add").style.display="inline";
                         document.getElementById("logout").style.display = "inline";
                   }
@@ -269,8 +273,10 @@
         <nav class="navbar">
             <a href="/">home</a>
             <a href="/purchase">Purchase items</a>
-            <a href="/reservation">Reservation</a>
-            <a href="/cart">Cart</a>
+            <a id="reserv" href="/reservation">Reservation</a>
+            <a id="cart"  href="/cart">Cart</a>
+             <a href="/orders">Past Orders</a>
+       
             <a href="/#about">About Us</a>
             <a href="/#contact">Contact Us</a>
             <a id="login"  href="/login">Login</a>
@@ -281,15 +287,7 @@
         </nav>
 
 
-        <div class="icons">
-            <div class="fas fa-search" id="search-btn"></div>
-            <div class="fas fa-bars" id="menu-btn"></div>
-        </div>
-
-        <div class="search-form">
-            <input type="search" id="search-box" placeholder="search here...">
-            <label for="search-box" class="fas fa-search"></label>
-        </div>
+       
 
     </header>
 

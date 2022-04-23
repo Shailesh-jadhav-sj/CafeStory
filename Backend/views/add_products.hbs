@@ -35,11 +35,22 @@
     
      function check()
      {
+              var firstName = getCookie("name");
+            
          
             if(firstName!="admin")
                   {
                       location.href="/login"
                   }
+
+                    document.getElementById("login").style.display = "none";
+                        document.getElementById("admin").style.display = "inline";
+                          document.getElementById("reserv").href = "/admin_reserv";
+                        document.getElementById("admin").style.display = "inline";
+                                              document.getElementById("cart").style.display = "none";
+                        document.getElementById("add").style.display="inline";
+                        document.getElementById("logout").style.display = "inline";
+                 
      }  
 
     function Book()
@@ -81,8 +92,11 @@
         body: JSON.stringify({"title": title,"description": description,"ingredient": ingredient,"price": price,"image":image})
         
         })
-        .then(res=>{if(res.status==201)
-        }
+        .then(res=>{
+            if(res.status==201)
+            alert('product added');
+        })
+    }
     }
 </script>
 
@@ -98,23 +112,19 @@
         <nav class="navbar">
             <a href="/">home</a>
             <a href="/purchase">Purchase items</a>
-            <a href="/reservation">Reservation</a>
-            <a href="/cart">Cart</a>
+            <a id = "reserv" href="/reservation">Reservation</a>
+        <a href="/orders">Past Orders</a>
+            <a id="cart"  href="/cart">Cart</a>
             <a href="/#about">About Us</a>
             <a href="/#contact">Contact Us</a>
-            <a href="/login">Login</a>
+            <a id="login"  href="/login">Login</a>
+            <a id="logout" href="/logout">Logout</a>
+            <a id="admin" href="#">Admin</a>
+            <a id="add" href="/add_products">Add Product</a>
+            
         </nav>
 
-        <div class="icons">
-            <div class="fas fa-search" id="search-btn"></div>
-            <div class="fas fa-bars" id="menu-btn"></div>
-        </div>
-
-        <div class="search-form">
-            <input type="search" id="search-box" placeholder="search here...">
-            <label for="search-box" class="fas fa-search"></label>
-        </div>
-
+       
     </header>
 
     <!-- header section ends -->
